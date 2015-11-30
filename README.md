@@ -1,4 +1,4 @@
-# My config
+# Required components
 
 ## I3
 `sudo apt-get install feh`
