@@ -7,6 +7,8 @@
 
 `sudo apt-get install amixer`
 
+`sudo apt-get install acpi`
+
 ### install conky
 `sudo add-apt-repository ppa:vincent-c/conky`
 
