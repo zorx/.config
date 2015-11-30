@@ -1,0 +1,18 @@
+#!/bin/bash
+
+var=-5
+if [ $1 -eq 1 ];then
+var=5
+fi
+
+var=$(($var + $(cat /sys/class/backlight/nv_backlight/brightness)))
+
+if [ $var -gt 100 ];then
+var=100
+fi
+
+if [ $var -lt 0 ];then
+var=0
+fi
+
+echo $var > /sys/class/backlight/nv_backlight/brightness
