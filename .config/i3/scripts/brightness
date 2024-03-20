@@ -1,18 +1,23 @@
 #!/bin/bash
+# Bash script to control the monitor brightness
+current_brightness=$(xrandr --verbose | grep -i brightness | awk '{print $2}')
+max_brightness=1.0
+min_brightness=0.5
 
-var=-5
-if [ $1 -eq 1 ];then
-var=5
+if [ "$1" == "+" ]; then
+    new_brightness=$(echo "$current_brightness + 0.1" | bc)
+    if (( $(echo "$new_brightness > $max_brightness" | bc -l) )); then
+        new_brightness=$max_brightness
+    fi
+elif [ "$1" == "-" ]; then
+    new_brightness=$(echo "$current_brightness - 0.1" | bc)
+    if (( $(echo "$new_brightness < $min_brightness" | bc -l) )); then
+        new_brightness=$min_brightness
+    fi
+else
+    echo "Usage: $0 [+ | -]"
+    exit 1
 fi
 
-var=$(($var + $(cat /sys/class/backlight/nv_backlight/brightness)))
-
-if [ $var -gt 100 ];then
-var=100
-fi
-
-if [ $var -lt 0 ];then
-var=0
-fi
-
-echo $var > /sys/class/backlight/nv_backlight/brightness
+screenname=$(xrandr | grep " connected" | cut -f1 -d" ")
+xrandr --output $screenname --brightness $new_brightness
