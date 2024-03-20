@@ -126,13 +126,13 @@ bindsym $mod+Shift+ccedilla move container to workspace 9
 bindsym $mod+Shift+agrave move container to workspace 10
 
 # Sound
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- unmute
 bindsym XF86AudioMute exec amixer -D pulse set Master toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec $HOME/.config/i3/scripts/brightness 1 # increase screen brightness
-bindsym XF86MonBrightnessDown exec $HOME/.config/i3/scripts/brightness 0 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec $HOME/.config/i3/scripts/brightness + # increase screen brightness
+bindsym XF86MonBrightnessDown exec $HOME/.config/i3/scripts/brightness - # decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
